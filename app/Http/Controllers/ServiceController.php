@@ -36,8 +36,8 @@ class ServiceController extends Controller
     public function store(StoreServicesRequest $request)
     {
         try {
-            $request->validated();
-            $service = $this->serviceRepository->create($request);
+            $data = $request->validated();
+            $service = $this->serviceRepository->create($data);
             return response()->json([
                 'message' => 'Service created successfully',
                 'service' => $service
@@ -176,10 +176,15 @@ class ServiceController extends Controller
     {
         try {
             $user = $request->user();
+            $data = $request->validate([
+                'type' => 'required|string',
+                'message' => 'required|string'
+            ]);
+            
             $notification = Notification::create([
                 'user_id' => $user->id,
-                'type' => $request->type,
-                'message' => $request->message,
+                'type' => $data['type'],
+                'message' => $data['message'],
             ]);
 
             broadcast(new NotificationEvent($notification, $user->id));

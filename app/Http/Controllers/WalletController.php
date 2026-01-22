@@ -15,17 +15,17 @@ class WalletController extends Controller
     public function charge(ChargRequest $request)
     {
         try {
-            $request->validated();
+            $data = $request->validated();
             $user = $request->user();
 
-            DB::transaction(function () use ($user, $request) {
-                $user->balance += $request->amount;
+            DB::transaction(function () use ($user, $data) {
+                $user->balance += $data['amount'];
                 $user->save();
 
                 Transaction::create([
                     'type' => 'charge',
                     'status' => 'completed',
-                    'amount' => $request->amount,
+                    'amount' => $data['amount'],
                     'receiver_id' => $user->id,
                     'notes' => 'Wallet charge',
                 ]);
@@ -33,7 +33,7 @@ class WalletController extends Controller
                 Notification::create([
                     'user_id' => $user->id,
                     'type' => 'charge',
-                    'message' => "Your wallet has been charged with amount: {$request->amount}.",
+                    'message' => "Your wallet has been charged with amount: {$data['amount']}.",
                 ]);
 
                 broadcast(new NotificationEvent(
@@ -63,18 +63,18 @@ class WalletController extends Controller
     public function transferRequest(transferRequest $request)
     {
         try {
-            $request->validated();
+            $data = $request->validated();
             $sender = $request->user();
 
-            if ($sender->id == $request->receiver_id) {
+            if ($sender->id == $data['receiver_id']) {
                 return response()->json(['message' => 'You cannot transfer to yourself'], 400);
             }
 
-            if ($sender->balance < $request->amount) {
+            if ($sender->balance < $data['amount']) {
                 return response()->json(
                     [
                         "status" => "failed",
-                        'message' => 'You don’t have enough balance to complete this transaction'
+                        "message" => "You don't have enough balance to complete this transaction"
                     ],
                     400
                 );
@@ -83,9 +83,9 @@ class WalletController extends Controller
             $transaction = Transaction::create([
                 'type' => 'transfer',
                 'status' => 'pending',
-                'amount' => $request->amount,
+                'amount' => $data['amount'],
                 'sender_id' => $sender->id,
-                'receiver_id' => $request->receiver_id,
+                'receiver_id' => $data['receiver_id'],
                 'notes' => 'Transfer request'
             ]);
 

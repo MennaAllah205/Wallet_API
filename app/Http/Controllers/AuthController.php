@@ -13,11 +13,11 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $request->validated();
+        $data = $request->validated();
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
         ]);
 
         return response()->json([
