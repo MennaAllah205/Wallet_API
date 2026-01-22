@@ -126,4 +126,5 @@ Example Response When Rate Limited:
 ## Postman Collection
 The Postman collection is included in the repository:
 `/postman/Wallet_API.postman_collection.json`
+
 `/Wallet API Env.postman_environment.json`
