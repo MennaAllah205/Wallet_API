@@ -14,10 +14,16 @@
           "name": "Register",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password\"\r\n}",
+              "raw": "{\r\n    \"name\": \"test36\",\r\n    \"email\": \"test36@example.com\",\r\n    \"password\": \"password5\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -117,7 +123,13 @@
           },
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": ""
@@ -154,13 +166,12 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/wallet/",
+              "raw": "{{base_url}}/wallet",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "wallet",
-                ""
+                "wallet"
               ]
             }
           },
@@ -336,7 +347,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\": \"Internet \",\r\n  \"price\": 200,\r\n  \"description\": \"monthly\"\r\n}\r\n\r\n",
+              "raw": "{\r\n  \"name\": \"test \",\r\n  \"price\": 200,\r\n  \"description\": \"monthly\"\r\n}\r\n\r\n",
               "options": {
                 "raw": {
                   "language": "json"
