@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 interface ServiceRepositoryInterface
 {
     public function getAll();
-    public function create(Request $request);
+    public function create(array $data);
     public function findById(int $id);
-    public function update(int $id, Request $request);
+    public function update(int $id, array $data);
     public function delete(int $id);
     public function purchase(Service $service, User $user);
 }

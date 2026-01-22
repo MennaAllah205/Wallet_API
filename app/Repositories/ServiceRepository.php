@@ -17,12 +17,12 @@ class ServiceRepository implements ServiceRepositoryInterface
         return Service::all();
     }
 
-    public function create(Request $request)
+    public function create(array $data)
     {
         return Service::create(attributes: [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
+            'name' => $data['name'],
+            'price' => $data['price'],
+            'description' => $data['description'],
         ]);
     }
 
@@ -31,10 +31,10 @@ class ServiceRepository implements ServiceRepositoryInterface
         return Service::findOrFail($id);
     }
 
-    public function update(int $id, Request $request)
+    public function update(int $id, array $data)
     {
         $service = $this->findById($id);
-        $service->update($request->all());
+        $service->update($data);
         return $service;
     }
     public function delete(int $id)

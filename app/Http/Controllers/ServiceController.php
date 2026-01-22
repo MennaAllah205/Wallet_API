@@ -77,7 +77,12 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $service = $this->serviceRepository->update($id, $request);
+            $data = $request->validate([
+                'name' => 'sometimes|required|string',
+                'price' => 'sometimes|required|numeric',
+                'description' => 'sometimes|required|string'
+            ]);
+            $service = $this->serviceRepository->update($id, $data);
             return response()->json([
                 'message' => 'Service updated successfully',
                 'service' => $service
