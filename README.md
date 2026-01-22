@@ -124,7 +124,8 @@ Example Response When Rate Limited:
 ```
 
 ## Postman Collection
-The Postman collection is included in the repository:
-`/postman/Wallet_API.postman_collection.json`
+The Postman collection and environment are included in the repository:
 
-`/Wallet API Env.postman_environment.json`
+- Collection: `/postman/Wallet_API.postman_collection.json`
+- Environment: `/postman/Wallet API Env.postman_environment.json`
+
